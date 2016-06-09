@@ -28,6 +28,7 @@ Bonus Features:
 
 ## Wire Frame
 ![](http://i.imgur.com/NrrSK9x.png)
+<br>
 -Very rough sketch, again. 
 
 ## Some of the Important Notes:
