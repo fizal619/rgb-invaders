@@ -8,7 +8,7 @@ $(function() {
   function alienSpawn() {
     var img = $('<img>');
     img.attr('class', 'alien');
-    img.attr('src', "/assets/invader.gif~c100");
+    img.attr('src', "http://rs345.pbsrc.com/albums/p386/WackoWeasel/invader1.gif~c100"); //'/assets/invader.gif~c100'
 
     var posX = Math.floor(Math.random() * ($('.gameScreen').width() - 32));
     var posY = Math.floor(Math.random() * ($('.gameScreen').height() - 32));
