@@ -17,10 +17,12 @@ But remember, if you put too much of one color, you lose!
 * As a user I would like to see a live timer to the game.
 * As a user I would like to see animated aliens with an animation when they die.
 * As a user I would like to see the color box and bars animate when updated. 
+* As a user I would like to hear audio feedback when I kill something. 
 
 Bonus Features:
 
 * As a user I would like to share my score with my friends on facebook. 
+* Make it mobile optimized for tapping!
 
 
 
