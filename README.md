@@ -4,34 +4,26 @@ Kill the invaders in order to fill the color bars! Try to get as close as possib
 
 ## The Game
 
-As you kill the invaders, their respective colors would increment the comparable colorbar/meter. <br>
-Every spawns for 2 seconds on the board randomly and you have to hit the coressponding button for that alien to kill them. There can be anywhere betweeen 2 and 8 aliens on the board at once.<br>
-Try as best you can to match the goal color that is randomly generated, or just best your last score. Scoring is the combined *RGB* difference between your current color and the goal color. **THE CLOSER YOU ARE TO ZERO THE BETTER.** <br>
-But remember, if you put too much of one color, you lose!
+Putting a personal mathematical twist on the classic space invaders i loved growing up. As you kill the invaders, their respective colors would increment the comparable colorbar/meter. <br>
+Try as best you can to match the goal color that is randomly generated, or just best your last score. Scoring is the combined RGB difference between your current color and the goal color. **THE CLOSER YOU ARE TO ZERO THE BETTER.** <br>
 
 ## User Stories
-* As a user I would like to see which keyboard input would kill which aliens.
+* As a user I would like to move the spaceship.
 * As a user I would like to see my score in real time. 
 * As a user I would like to see the color bar move up and down as I score. 
 * As a user I would like to shoot the aliens to score. 
-* As a user I would like to see a live timer to the game.
-* As a user I would like to see animated aliens with an animation when they die.
-* As a user I would like to see the color box and bars animate when updated. 
-* As a user I would like to hear audio feedback when I kill something. 
 
 Bonus Features:
 
+* If possible add a live timer to the game.
 * As a user I would like to share my score with my friends on facebook. 
-* Make it mobile optimized for tapping!
-
 
 
 ## Wire Frame
-![](http://i.imgur.com/NrrSK9x.png)
-<br>
--Very rough sketch, again. 
+![](http://i.imgur.com/tO6FJiY.png)
+-Very rough sketch, still need to decide on share screen layout. 
 
 ## Some of the Important Notes:
-
-
+Shoutout to Trevor Preston and [this link](http://stackoverflow.com/questions/4796743/random-position-of-divs-in-javascript) for helping me understand random element spawning. <br>
+I also got the function for identifying collisions from [here](http://stackoverflow.com/questions/5419134/how-to-detect-if-two-divs-touch-with-jquery). <br>
 
