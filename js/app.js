@@ -15,6 +15,8 @@ $(function() {
     space: 32
   }
 
+  var alienID = 0;
+
   // ALIEN ENTITY
   // function to spawn the random aliens
   function alienSpawn() {
@@ -24,6 +26,7 @@ $(function() {
 
     // build the image tag with a random colored alien from assets folder
     img.attr('class', 'alien');
+    img.attr('id', alienID++);
     var randomAlien = Math.floor(Math.random() * aliens.length);
     img.attr('src', aliens[randomAlien]);
 
@@ -34,7 +37,6 @@ $(function() {
     var posY = Math.floor(Math.random() * ($('.gameScreen').height() - 300));
     img.css('left', posX + 'px');
     img.css('top', posY + 'px');
-
 
     //append to the game screen but make it remove itself after a delay
     $(img).appendTo('.gameScreen').fadeIn(500).delay(4000).fadeOut(500, function() {
@@ -64,34 +66,92 @@ $(function() {
   $(document).keydown(function(event) {
     var position = $('.player').position();
     //check which key is being pressed and if the resulting position is within the gamescreen
-    if (event.which == keys.left && (position.left - 10 ) > 32) {
-      $('.player').css('left', (position.left - 10) + 'px' );
+    if (event.which == keys.left && (position.left - 10) > 32) {
+      // $('.player').css('left', (position.left - 10) + 'px' );
+      $('.player').animate({
+          left: position.left - 20,
+        },
+        50,
+        function() {
+          /* stuff to do after animation is complete */
+        });
     }
     // same as above
-    if (event.which == keys.right && (position.left + 10 ) < ($('.gameScreen').width()) - 32 ) {
-      $('.player').css('left', (position.left + 10) + 'px' );
+    if (event.which == keys.right && (position.left + 10) < ($('.gameScreen').width()) - 32) {
+      // $('.player').css('left', (position.left + 10) + 'px' );
+      $('.player').animate({
+          left: position.left + 20,
+        },
+        50,
+        function() {
+          /* stuff to do after animation is complete */
+        });
     }
 
   });
 
 
   //to make the player fire
-  $(document).keypress(function(event){
-    if(event.which == keys.space){
+  $(document).keypress(function(event) {
+    if (event.which == keys.space) {
       var rocket = $('<img class="rocket" src="../assets/rocket.gif">');
       var playerPosition = $('.player').position();
       rocket.css('left', playerPosition.left - 8);
       rocket.css('top', playerPosition.top);
       $(rocket).appendTo('.gameScreen');
+      var rocketCheck = setInterval(function() {
+        checkAllAliens($('.rocket'));
+      }, 200);
       $('.rocket').animate({
-        top: '0'},
-        2000, function() {
-        $(this).remove();
-      });
+          top: '0'
+        },
+        2000,
+        function() {
+          $(this).remove();
+          clearInterval(rocketCheck);
+
+        });
     }
   });
 
   // END PLAYER ENTITY
+
+  //CHECK COLLISION from http://jsfiddle.net/nGRwt/7/
+
+  function collision($div1, $div2) {
+    var x1 = $div1.offset().left;
+    var y1 = $div1.offset().top;
+    var h1 = $div1.outerHeight(true);
+    var w1 = $div1.outerWidth(true);
+    var b1 = y1 + h1;
+    var r1 = x1 + w1;
+    var x2 = $div2.offset().left;
+    var y2 = $div2.offset().top;
+    var h2 = $div2.outerHeight(true);
+    var w2 = $div2.outerWidth(true);
+    var b2 = y2 + h2;
+    var r2 = x2 + w2;
+
+    if (b1 < y2 || y1 > b2 || r1 < x2 || x1 > r2) return false;
+    $($div1).remove();
+    $($div2).remove();
+
+  }
+
+  // loop through Aliens and check all of them against the rocket that calls this
+  function checkAllAliens(rocketElement) {
+    var aliensOnBoard = $('.alien');
+    var rocketsOnBoard = $('.rocket');
+    for (var i = rocketsOnBoard.length - 1; i >= 0; i--) {
+      for (var h = 0; i < aliensOnBoard.length; h++) {
+        collision($(rocketsOnBoard[i]), $(aliensOnBoard[h]));
+      }
+
+    }
+      console.log(rocketsOnBoard);
+      console.log(aliensOnBoard);
+  }
+  //CHECK COLLISION END
 
   // function to generate the random color
 
