@@ -4,9 +4,12 @@
   position: absolute;
   width:64px;
   height: 64px;
+}
 
-  /*z-index: 1;*/
-
+.player {
+  position: absolute;
+  width:64px;
+  height:64px;
 }
 
 
@@ -25,5 +28,5 @@ body {
   background-size: cover;
   position: relative;
   width:auto;
-  height:400px;
+  height:500px;
 }
