@@ -1,7 +1,7 @@
 $(function() {
   console.log('loaded');
 
-  // various variables
+  // 'GLOBAL' VARIABLES
   var game = true;
   var aliens = [
     '../assets/invader.gif~c100',
@@ -16,6 +16,8 @@ $(function() {
   }
 
   var alienID = 0;
+
+  //END GLOBAL VARIABLES
 
   // ALIEN ENTITY
   // function to spawn the random aliens

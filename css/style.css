@@ -28,6 +28,7 @@ body {
 }
 
 .gameScreen {
+  margin-top: 10%;
   background-image:url('http://67.media.tumblr.com/d629b615957dd93e460a9170b802fd28/tumblr_n9jk2qAjGS1s4fz4bo1_500.gif');
   /*background-position: fill;*/
   /*background-repeat: no-repeat;*/
