@@ -101,11 +101,11 @@ $(function() {
       $(rocket).appendTo('.gameScreen');
       var rocketCheck = setInterval(function() {
         checkAllAliens($('.rocket'));
-      }, 200);
+      }, 50);
       $('.rocket').animate({
           top: '0'
         },
-        2000,
+        1000,
         function() {
           $(this).remove();
           clearInterval(rocketCheck);
@@ -116,8 +116,10 @@ $(function() {
 
   // END PLAYER ENTITY
 
-  //CHECK COLLISION from http://jsfiddle.net/nGRwt/7/
+  //CHECK COLLISION
 
+
+  // function from http://jsfiddle.net/nGRwt/7/
   function collision($div1, $div2) {
     var x1 = $div1.offset().left;
     var y1 = $div1.offset().top;
@@ -169,7 +171,7 @@ $(function() {
   // testing grounds
 
   spawnPlayer();
-  setInterval(alienSpawn, 2000);
+  setInterval(alienSpawn, 1000);
 
 
 
