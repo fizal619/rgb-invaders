@@ -2,14 +2,20 @@
 
 .alien {
   position: absolute;
-  width:64px;
-  height: 64px;
+  width:42px;
+  height: 42px;
 }
 
 .player {
   position: absolute;
   width:64px;
   height:64px;
+}
+
+.rocket {
+  position: absolute;
+  width: 16px;
+  height: 16px;
 }
 
 
