@@ -21,12 +21,10 @@
 }
 
 
-
-
-
 /*Page Styles*/
 body {
   font-family: 'Press Start 2P', cursive;
+  background-color: rgb(5,5,5);
 
 }
 
@@ -43,7 +41,7 @@ body {
 }
 
 #liveScore{
-  right: 20px;
+  right: 10px;
   top:0;
   position: absolute;
   margin:10px;
@@ -65,7 +63,7 @@ body {
   bottom:10px;
   right:130px;
   width:50px;
-  height:5px;
+  height:0px;
   background-color: red;
 }
 
@@ -74,7 +72,7 @@ body {
   bottom:10px;
   right:70px;
   width:50px;
-  height:5px;
+  height:0px;
   background-color: green;
 }
 
@@ -83,6 +81,33 @@ body {
   bottom:10px;
   right:10px;
   width:50px;
-  height:5px;
+  height:0px;
   background-color: blue;
+}
+
+.goal{
+  position: absolute;
+  right:10px;
+  bottom:300px;
+  height:150px;
+  width: 150px;
+}
+
+.goal p{
+  position: absolute;
+  margin:0 auto;
+  bottom:0;
+  color:white;
+}
+
+#goalColor{
+  top:10px;
+  right: 25px;
+  position: absolute;
+  margin:auto;
+  align:center;
+  height:100px;
+  width:100px;
+  /*border: 2px white dashed;*/
+  border-radius:10px;
 }

@@ -1,7 +1,7 @@
 $(function() {
   console.log('loaded');
 
-  // 'GLOBAL' VARIABLES
+  // 'USEFUL' AND EXPLICITLY NAMED VARIABLES
   var game = true;
   var aliens = [
     '../assets/invader.gif~c100',
@@ -16,20 +16,46 @@ $(function() {
     space: 32
   }
 
+  // Where the goal color comes from
+  var goalColor = {
+    red: 0,
+    green: 0,
+    blue: 0,
+    total: function() {
+      return this.red + this.green + this.blue;
+    },
+    // function to generate the random color and set the goal color
+    randomize: function() {
+      this.red = Math.floor(Math.random() * 25) * 10;
+      this.green = Math.floor(Math.random() * 25) * 10;
+      this.blue = Math.floor(Math.random() * 25) * 10;
+      $('#goalColor').css('background-color', this.rgb());
+    },
+    // returns the RGB value of this
+    rgb: function() {
+      return 'rgb(' + this.red + ',' + this.green + ',' + this.blue + ')';
+    }
+
+  }
+
   //the main scoretable for the games
   var scoreTable = {
     red: 0,
     green: 0,
     blue: 0,
     total: function() {
-      return this.red + this.green + this.blue;
+      return goalColor.total() - (this.red + this.green + this.blue);
+    },
+    // returns the RGB value of this
+    rgb: function() {
+      return 'rgb(' + this.red + ',' + this.green + ',' + this.blue + ')';
     }
   }
 
   //we'll give each new alien a unique ID from incrementing this
   var alienID = 0;
 
-  //END GLOBAL VARIABLES
+  //END USEFUL VARIABLES
 
   // ALIEN ENTITY
   // function to spawn the random aliens
@@ -105,28 +131,32 @@ $(function() {
 
   //to make the player fire
   $(document).keypress(function(event) {
-
+    // checks if the spacebar was pressed
     if (event.which == keys.space) {
+
+      // initializes the rocket at the players current position
       var rocket = $('<img class="rocket" src="../assets/rocket.gif">');
       var playerPosition = $('.player').position();
 
       rocket.css('left', playerPosition.left - 8);
       rocket.css('top', playerPosition.top);
 
+      //appends it to the gamescreen
       $(rocket).appendTo('.gameScreen');
 
+      //fires the function to check the position of everything on the board and kill aliens on colission; every 10ms, very inefficient? TODO: figure out more efficient way of doing this.
       var rocketCheck = setInterval(function() {
         checkAllAliens($('.rocket'));
-      }, 20);
+      }, 10);
 
+      // zoom the rocket to the top
       $('.rocket').animate({
           top: '0'
         },
         1000,
         function() {
           $(this).remove();
-          clearInterval(rocketCheck);
-
+          clearInterval(rocketCheck); //make sure to stop the interval function to save processing power.
         });
     }
   });
@@ -152,17 +182,23 @@ $(function() {
     var r2 = x2 + w2;
 
     if (b1 < y2 || y1 > b2 || r1 < x2 || x1 > r2) return false;
-
+    //From here on out would only occur on collision.
+    // update score for the appropriate alien
     if (($div2).attr('src').includes('green')) {
-      scoreTable.green += 5;
+      scoreTable.green += 10;
     } else if (($div2).attr('src').includes('blue')) {
-      scoreTable.blue += 5;
+      scoreTable.blue += 10;
     } else {
-      scoreTable.red += 5;
+      scoreTable.red += 10;
     }
 
+    // draw the score
     $('#score').text(scoreTable.total());
-    colorBars();
+
+    // update the colors on the page
+    colorBarsAndBG();
+
+    //remove the rocket and alien entities.
     $($div1).remove();
     $($div2).remove();
 
@@ -183,36 +219,36 @@ $(function() {
   }
   //CHECK COLLISION END
 
-  // function to update color bars
-  function colorBars(){
+  // UPDATE COLOR BARS AND BG
+  // function to update color bars and background color
+  function colorBarsAndBG() {
     // select the ids of the bars then animate the change in height.
     $('#red-progress').animate({
-      height: scoreTable.red },
+        height: scoreTable.red
+      },
       1000);
     $('#green-progress').animate({
-      height: scoreTable.green },
+        height: scoreTable.green
+      },
       1000);
     $('#blue-progress').animate({
-      height: scoreTable.blue },
+        height: scoreTable.blue
+      },
       1000);
+
+    //update the background color
+    $('body').css('background-color', scoreTable.rgb());
   }
+  // UPDATE COLOR BARS AND BG END
 
-  // function to generate the random color
-
-
-  // function to update score or end game if 0
-
-
-  // function to fill bars
-
-
-  // function to update current color as background color
+  // function to to check for game over.
 
 
 
   // testing grounds
-
   spawnPlayer();
+  goalColor.randomize();
+  $('#score').text(scoreTable.total()); //draw the initial score
   setInterval(alienSpawn, 1000);
 
 
