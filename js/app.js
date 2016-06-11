@@ -45,7 +45,7 @@ $(function() {
     img.attr('src', aliens[randomAlien]);
 
     //spawn them at a random position but above the last 200px of the screen height
-    var posX = Math.floor(Math.random() * ($('.gameScreen').width() - 64));
+    var posX = Math.floor(Math.random() * ($('.gameScreen').width() - 221));
     var posY = Math.floor(Math.random() * ($('.gameScreen').height() - 300));
     img.css('left', posX + 'px');
     img.css('top', posY + 'px');
@@ -89,7 +89,7 @@ $(function() {
         });
     }
     // same as above
-    if (event.which == keys.right && (position.left + 10) < ($('.gameScreen').width()) - 32) {
+    if (event.which == keys.right && (position.left + 10) < ($('.gameScreen').width()) - 210) {
       // $('.player').css('left', (position.left + 10) + 'px' );
       $('.player').animate({
           left: position.left + 20,
@@ -162,7 +162,7 @@ $(function() {
     }
 
     $('#score').text(scoreTable.total());
-
+    colorBars();
     $($div1).remove();
     $($div2).remove();
 
@@ -183,8 +183,19 @@ $(function() {
   }
   //CHECK COLLISION END
 
-  // function to update score
-
+  // function to update color bars
+  function colorBars(){
+    // select the ids of the bars then animate the change in height.
+    $('#red-progress').animate({
+      height: scoreTable.red },
+      1000);
+    $('#green-progress').animate({
+      height: scoreTable.green },
+      1000);
+    $('#blue-progress').animate({
+      height: scoreTable.blue },
+      1000);
+  }
 
   // function to generate the random color
 
