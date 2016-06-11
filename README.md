@@ -26,8 +26,4 @@ Bonus Features:
 ## Some of the Important Notes:
 Shoutout to Trevor Preston and [this link](http://stackoverflow.com/questions/4796743/random-position-of-divs-in-javascript) for helping me understand random element spawning. <br>
 I also got the function for identifying collisions from [here](http://stackoverflow.com/questions/5419134/how-to-detect-if-two-divs-touch-with-jquery). <br>
-<<<<<<< HEAD
-
-=======
->>>>>>> shooter-engine
 
