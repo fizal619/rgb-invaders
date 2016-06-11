@@ -32,25 +32,16 @@ $(function() {
     var randomAlien = Math.floor(Math.random() * aliens.length);
     img.attr('src', aliens[randomAlien]);
 
-<<<<<<< HEAD
-    //spawn them at a random position
-=======
 
 
     //spawn them at a random position but above the last 200px of the screen height
->>>>>>> shooter-engine
     var posX = Math.floor(Math.random() * ($('.gameScreen').width() - 64));
     var posY = Math.floor(Math.random() * ($('.gameScreen').height() - 300));
     img.css('left', posX + 'px');
     img.css('top', posY + 'px');
 
-<<<<<<< HEAD
-    //append to the game screen
-    $(img).appendTo('.gameScreen').fadeIn(500).delay(3000).fadeOut(500, function() {
-=======
     //append to the game screen but make it remove itself after a delay
     $(img).appendTo('.gameScreen').fadeIn(500).delay(4000).fadeOut(500, function() {
->>>>>>> shooter-engine
       $(this).remove();
     });
   }
@@ -180,14 +171,10 @@ $(function() {
 
 
   // testing grounds
-<<<<<<< HEAD
-  setInterval(alienSpawn, 1200);
-=======
 
   spawnPlayer();
   setInterval(alienSpawn, 1000);
 
->>>>>>> shooter-engine
 
 
 });
