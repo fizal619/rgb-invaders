@@ -9,12 +9,24 @@ $(function() {
     '../assets/green_invader.gif'
   ];
 
+  // a nice handy reference for keycodes
   var keys = {
     left: 37,
     right: 39,
     space: 32
   }
 
+  //the main scoretable for the games
+  var scoreTable = {
+    red: 0,
+    green: 0,
+    blue: 0,
+    total: function() {
+      return this.red + this.green + this.blue;
+    }
+  }
+
+  //we'll give each new alien a unique ID from incrementing this
   var alienID = 0;
 
   //END GLOBAL VARIABLES
@@ -31,8 +43,6 @@ $(function() {
     img.attr('id', alienID++);
     var randomAlien = Math.floor(Math.random() * aliens.length);
     img.attr('src', aliens[randomAlien]);
-
-
 
     //spawn them at a random position but above the last 200px of the screen height
     var posX = Math.floor(Math.random() * ($('.gameScreen').width() - 64));
@@ -95,15 +105,20 @@ $(function() {
 
   //to make the player fire
   $(document).keypress(function(event) {
+
     if (event.which == keys.space) {
       var rocket = $('<img class="rocket" src="../assets/rocket.gif">');
       var playerPosition = $('.player').position();
+
       rocket.css('left', playerPosition.left - 8);
       rocket.css('top', playerPosition.top);
+
       $(rocket).appendTo('.gameScreen');
+
       var rocketCheck = setInterval(function() {
         checkAllAliens($('.rocket'));
-      }, 50);
+      }, 20);
+
       $('.rocket').animate({
           top: '0'
         },
@@ -137,8 +152,20 @@ $(function() {
     var r2 = x2 + w2;
 
     if (b1 < y2 || y1 > b2 || r1 < x2 || x1 > r2) return false;
+
+    if (($div2).attr('src').includes('green')) {
+      scoreTable.green += 5;
+    } else if (($div2).attr('src').includes('blue')) {
+      scoreTable.blue += 5;
+    } else {
+      scoreTable.red += 5;
+    }
+
+    $('#score').text(scoreTable.total());
+
     $($div1).remove();
     $($div2).remove();
+
 
   }
 
@@ -152,10 +179,12 @@ $(function() {
       }
 
     }
-      console.log(rocketsOnBoard);
-      console.log(aliensOnBoard);
+
   }
   //CHECK COLLISION END
+
+  // function to update score
+
 
   // function to generate the random color
 
