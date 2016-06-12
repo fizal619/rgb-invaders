@@ -16,6 +16,9 @@ $(function() {
     space: 32
   }
 
+  // used to keep track of bonustime
+  var bonusCount = 100;
+
   // Where the goal color comes from
   var goalColor = {
     red: 0,
@@ -126,7 +129,7 @@ $(function() {
 
   }
 
-  //move it
+  // MOVEMENT!!!!
   //add event listener to document to move player
   $(document).keydown(function(event) {
     var position = $('.player').position();
@@ -157,41 +160,89 @@ $(function() {
 
 
   //to make the player fire
+  function fireRocket() {
+    // initializes the rocket at the players current position
+    var rocket = $('<img class="rocket" src="../assets/rocket.gif">');
+    var playerPosition = $('.player').position();
+
+    rocket.css('left', playerPosition.left - 8);
+    rocket.css('top', playerPosition.top);
+
+    //appends it to the gamescreen
+    $(rocket).appendTo('.gameScreen');
+
+    //fires the function to check the position of everything on the board and kill aliens on colission; every 10ms, very inefficient? TODO: figure out more efficient way of doing this.
+    var rocketCheck = setInterval(function() {
+      checkAllAliens($('.rocket'));
+    }, 10);
+
+    // zoom the rocket to the top
+    $('.rocket').animate({
+        top: '0'
+      },
+      1000,
+      function() {
+        $(this).remove();
+        clearInterval(rocketCheck); //make sure to stop the interval function to save processing power.
+      });
+  }
+
   $(document).keypress(function(event) {
     // checks if the spacebar was pressed
     if (event.which == keys.space) {
-
-      // initializes the rocket at the players current position
-      var rocket = $('<img class="rocket" src="../assets/rocket.gif">');
-      var playerPosition = $('.player').position();
-
-      rocket.css('left', playerPosition.left - 8);
-      rocket.css('top', playerPosition.top);
-
-      //appends it to the gamescreen
-      $(rocket).appendTo('.gameScreen');
-
-      //fires the function to check the position of everything on the board and kill aliens on colission; every 10ms, very inefficient? TODO: figure out more efficient way of doing this.
-      var rocketCheck = setInterval(function() {
-        checkAllAliens($('.rocket'));
-      }, 10);
-
-      // zoom the rocket to the top
-      $('.rocket').animate({
-          top: '0'
-        },
-        1000,
-        function() {
-          $(this).remove();
-          clearInterval(rocketCheck); //make sure to stop the interval function to save processing power.
-        });
+      fireRocket();
     }
   });
 
+  //to move the player with mouse or touch screen rule of thirds for this, left right to move and middle to shoot.
+  $('.gameScreen').click(function(event) {
+    //find the position of the click event and player
+    var posX = event.pageX;
+    var position = $('.player').position();
+
+    // figure out the boundaries of thirds
+    var widthOfScreen = $('.gameScreen').width();
+    var firstThird = $('.gameScreen').width() / 3;
+    console.log(firstThird);
+    var secondThird = ($('.gameScreen').width() - firstThird);
+    console.log(secondThird);
+
+
+    //now we test on which third it was made.
+    if (posX < firstThird) {
+      //move left
+      $('.player').animate({
+          left: position.left - 20,
+        },
+        50,
+        function() {
+          /* stuff to do after animation is complete */
+        });
+
+    } else if (posX > firstThird && posX < secondThird) {
+      // fire!!
+      fireRocket();
+
+    } else {
+      //move right
+      $('.player').animate({
+          left: position.left + 20,
+        },
+        50,
+        function() {
+          /* stuff to do after animation is complete */
+        });
+
+    }
+
+  });
+
+  //END MOVEMENT
+
   // END PLAYER ENTITY
 
-  //CHECK COLLISION
 
+  //CHECK COLLISION
 
   // function from http://jsfiddle.net/nGRwt/7/
   function collision($div1, $div2) {
@@ -234,6 +285,8 @@ $(function() {
     $($div1).remove();
     $($div2).remove();
 
+    //invoke the bonus function whenever the player scores
+    checkBonus();
 
   }
 
@@ -323,7 +376,7 @@ $(function() {
 
   //IS THE GAME OVER END
 
-  // RESPONSIVE
+  // RESPONSIVE STUFF CUSTOM
   function screenResize() {
 
     //Object from http://magentohostsolution.com/3-ways-detect-mobile-device-jquery/
@@ -348,39 +401,52 @@ $(function() {
       }
     }; //end object from http://magentohostsolution.com/3-ways-detect-mobile-device-jquery/
 
-    //mycode for implementing the above.
+    // function to adjust height and dry up code
+    function screensHeight(nths) {
+      $('.startScreen').css('height', $(window).height() - $(window).height() / nths);
+      $('.gameScreen').css('height', $(window).height() - $(window).height() / nths);
+      $('.endScreen').css('height', $(window).height() - $(window).height() / nths);
+    }
+
+    // function to adjust width and dry up code
+    function screensWidth(nths) {
+      $('.startScreen').css('width', $(window).width() - $(window).width() / nths);
+      $('.gameScreen').css('width', $(window).width() - $(window).width() / nths);
+      $('.endScreen').css('width', $(window).width() - $(window).width() / nths);
+    }
+
+    //my code for implementing the above.
     if (isMobile.any()) { //only runs for popular mobile devices
-      $('.startScreen').css('height', $(window).height() - $(window).height() / 10);
-      $('.gameScreen').css('height', $(window).height() - $(window).height() / 10);
-      $('.endScreen').css('height', $(window).height() - $(window).height() / 10);
+      screensHeight(10);
     } else { //everything else
       if ($(window).width() < 1400) {
         // adjust the height
-        $('.startScreen').css('height', $(window).height() - $(window).height() / 4);
-        $('.gameScreen').css('height', $(window).height() - $(window).height() / 4);
-        $('.endScreen').css('height', $(window).height() - $(window).height() / 4);
+        screensHeight(4);
 
         // now the width
-        $('.startScreen').css('width', $(window).width() - $(window).width() / 3);
-        $('.gameScreen').css('width', $(window).width() - $(window).width() / 3);
-        $('.endScreen').css('width', $(window).width() - $(window).width() / 3);
+        screensWidth(3);
       } else {
         // adjust the height
-        $('.startScreen').css('height', $(window).height() - $(window).height() / 3);
-        $('.gameScreen').css('height', $(window).height() - $(window).height() / 3);
-        $('.endScreen').css('height', $(window).height() - $(window).height() / 3);
+        screensHeight(3);
 
         // now the width
-        $('.startScreen').css('width', $(window).width() - $(window).width() / 3);
-        $('.gameScreen').css('width', $(window).width() - $(window).width() / 3);
-        $('.endScreen').css('width', $(window).width() - $(window).width() / 3);
+        screensWidth(3);
       }
     }
-
 
   }
 
   //END RESPONSIVE
+
+  //BONUS TIME!!!
+  //for every 100 points scored it'll reward the player with an extra minute
+  function checkBonus() {
+    var diff = scoreTable.total() - goalColor.total();
+    if (diff % bonusCount === 0) {
+      timer.seconds += 60;
+    }
+  }
+  //END BONUS TIME
 
   // set up the board.
   screenResize();
