@@ -323,7 +323,68 @@ $(function() {
 
   //IS THE GAME OVER END
 
+  // RESPONSIVE
+  function screenResize() {
+
+    //Object from http://magentohostsolution.com/3-ways-detect-mobile-device-jquery/
+    var isMobile = {
+      Android: function() {
+        return navigator.userAgent.match(/Android/i);
+      },
+      BlackBerry: function() {
+        return navigator.userAgent.match(/BlackBerry/i);
+      },
+      iOS: function() {
+        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+      },
+      Opera: function() {
+        return navigator.userAgent.match(/Opera Mini/i);
+      },
+      Windows: function() {
+        return navigator.userAgent.match(/IEMobile/i);
+      },
+      any: function() {
+        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+      }
+    }; //end object from http://magentohostsolution.com/3-ways-detect-mobile-device-jquery/
+
+    //mycode for implementing the above.
+    if (isMobile.any()) { //only runs for popular mobile devices
+      $('.startScreen').css('height', $(window).height() - $(window).height() / 10);
+      $('.gameScreen').css('height', $(window).height() - $(window).height() / 10);
+      $('.endScreen').css('height', $(window).height() - $(window).height() / 10);
+    } else { //everything else
+      if ($(window).width() < 1400) {
+        // adjust the height
+        $('.startScreen').css('height', $(window).height() - $(window).height() / 4);
+        $('.gameScreen').css('height', $(window).height() - $(window).height() / 4);
+        $('.endScreen').css('height', $(window).height() - $(window).height() / 4);
+
+        // now the width
+        $('.startScreen').css('width', $(window).width() - $(window).width() / 3);
+        $('.gameScreen').css('width', $(window).width() - $(window).width() / 3);
+        $('.endScreen').css('width', $(window).width() - $(window).width() / 3);
+      } else {
+        // adjust the height
+        $('.startScreen').css('height', $(window).height() - $(window).height() / 3);
+        $('.gameScreen').css('height', $(window).height() - $(window).height() / 3);
+        $('.endScreen').css('height', $(window).height() - $(window).height() / 3);
+
+        // now the width
+        $('.startScreen').css('width', $(window).width() - $(window).width() / 3);
+        $('.gameScreen').css('width', $(window).width() - $(window).width() / 3);
+        $('.endScreen').css('width', $(window).width() - $(window).width() / 3);
+      }
+    }
+
+
+  }
+
+  //END RESPONSIVE
+
   // set up the board.
+  screenResize();
+
   $('.startScreen').fadeIn('slow', function() {
     $('#start').click(function(event) {
       $('.startScreen').remove();
@@ -334,12 +395,14 @@ $(function() {
         $('#score').text(scoreTable.total()); //draw the initial score
 
         //set everything to a game clock that ticks every second.
-        var gameClock = setInterval(function() {
+        gameClock = setInterval(function() {
           timer.update();
           alienSpawn();
         }, 1000);
       });
     });
   });
+
+
 
 });

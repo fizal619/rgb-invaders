@@ -30,14 +30,15 @@ body {
 
 .gameScreen {
   display: none;
-  margin-top: 5%;
+  margin: auto;
+  /*margin-top: 5%;*/
   background-image:url('../assets/background.gif');
   /*background-position: fill;*/
   /*background-repeat: no-repeat;*/
   background-size: cover;
   position: relative;
   width:auto;
-  height:500px;
+  /*height:500px;*/
   border-radius: 5px;
 }
 
@@ -123,14 +124,15 @@ body {
 
 .endScreen {
   display:none;
-  margin-top: 5%;
+  margin: auto;
+  /*margin-top: 5%;*/
   background-image:url('../assets/background.gif');
   /*background-position: fill;*/
   /*background-repeat: no-repeat;*/
   background-size: cover;
   position: relative;
   width:auto;
-  height:500px;
+  /*height:500px;*/
   border-radius: 5px;
   color: white;
 }
@@ -160,31 +162,34 @@ body {
   text-align: right;
 }
 
-.button-danger{
-  color: white;
-  border-color: red;
-  background-color: red;
+#reset{
+  position: absolute;
+  width: 70%;
+  margin: 280px 0 0 -50px;
+  left: 25%;
+  text-align: left;
 }
+
+
 
 .startScreen{
   /*display:none;*/
-  margin-top: 5%;
+  /*margin-top: 5%;*/
   background-image:url('../assets/background.gif');
   /*background-position: fill;*/
   /*background-repeat: no-repeat;*/
   background-size: cover;
   position: relative;
   width:auto;
-  height:500px;
+  /*height:500px;*/
   border-radius: 5px;
   color: white;
+  margin: auto;
 
 }
 
-a.button{
-  color:black;
-  background-color: lightblue;
-  border-color: lightblue;
+a{
+  text-decoration: none;
 }
 
 .containStart{
@@ -193,6 +198,7 @@ a.button{
   height:300px;
   margin: 0 auto;
   left:19%;
-  top:20%;
+  top:15%;
   text-align: center;
 }
+
