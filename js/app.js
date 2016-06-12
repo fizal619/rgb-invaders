@@ -16,6 +16,9 @@ $(function() {
     space: 32
   }
 
+  //player speed for different things
+  var playerSpeed = 0;
+
   // used to keep track of bonustime
   var bonusCount = 100;
 
@@ -137,7 +140,7 @@ $(function() {
     if (event.which == keys.left && (position.left - 10) > 32) {
       // $('.player').css('left', (position.left - 10) + 'px' );
       $('.player').animate({
-          left: position.left - 20,
+          left: position.left - playerSpeed,
         },
         50,
         function() {
@@ -148,7 +151,7 @@ $(function() {
     if (event.which == keys.right && (position.left + 10) < ($('.gameScreen').width()) - 210) {
       // $('.player').css('left', (position.left + 10) + 'px' );
       $('.player').animate({
-          left: position.left + 20,
+          left: position.left + playerSpeed,
         },
         50,
         function() {
@@ -212,7 +215,7 @@ $(function() {
     if (posX < firstThird) {
       //move left
       $('.player').animate({
-          left: position.left - 20,
+          left: position.left - playerSpeed,
         },
         50,
         function() {
@@ -226,7 +229,7 @@ $(function() {
     } else {
       //move right
       $('.player').animate({
-          left: position.left + 20,
+          left: position.left + playerSpeed,
         },
         50,
         function() {
@@ -418,6 +421,7 @@ $(function() {
     //my code for implementing the above.
     if (isMobile.any()) { //only runs for popular mobile devices
       screensHeight(10);
+      playerSpeed = 50;
     } else { //everything else
       if ($(window).width() < 1400) {
         // adjust the height
@@ -425,12 +429,20 @@ $(function() {
 
         // now the width
         screensWidth(3);
+
+        //set the speed
+        playerSpeed = 30;
+
       } else {
         // adjust the height
         screensHeight(3);
 
         // now the width
         screensWidth(3);
+
+        //set the speed
+        playerSpeed = 30;
+
       }
     }
 
