@@ -60,25 +60,25 @@ $(function() {
   var timer = {
     seconds: 260,
     //returns the minutes
-    minutes: function(){
-      if(Math.floor(this.seconds/60) >= 10){
-        return Math.floor(this.seconds/60);
-      }else{
-        return '0' + Math.floor(this.seconds/60);
+    minutes: function() {
+      if (Math.floor(this.seconds / 60) >= 10) {
+        return Math.floor(this.seconds / 60);
+      } else {
+        return '0' + Math.floor(this.seconds / 60);
       }
     },
     // updates the page's timer
-    update: function(){
-      if(this.seconds%60 >= 10){
-        $('#timer').text(this.minutes() + ':' + this.seconds%60);
-      }else{
-        $('#timer').text(this.minutes() + ':0' + this.seconds%60);
+    update: function() {
+      if (this.seconds % 60 >= 10) {
+        $('#timer').text(this.minutes() + ':' + this.seconds % 60);
+      } else {
+        $('#timer').text(this.minutes() + ':0' + this.seconds % 60);
       }
       this.seconds--;
 
-      if(testGameOver()){
-      gameOverScreen(testGameOver());
-    }
+      if (testGameOver()) {
+        gameOverScreen(testGameOver());
+      }
     }
   }
 
@@ -220,7 +220,7 @@ $(function() {
     }
 
     // if testGameover returns
-    if(testGameOver()){
+    if (testGameOver()) {
       gameOverScreen(testGameOver());
     }
 
@@ -272,16 +272,23 @@ $(function() {
   // UPDATE COLOR BARS AND BG END
 
   //IS THE GAME OVER?
-  function testGameOver(){
-    if(scoreTable.red > goalColor.red) { return 'red';}
-    if(scoreTable.green > goalColor.green) { return 'green';}
-    if(scoreTable.blue > goalColor.blue) { return 'blue';}
+  function testGameOver() {
+    // the three gameover circumstances
+    if (scoreTable.red > goalColor.red) {
+      return 'red';
+    }
+    if (scoreTable.green > goalColor.green) {
+      return 'green';
+    }
+    if (scoreTable.blue > goalColor.blue) {
+      return 'blue';
+    }
 
-    if(score===0){
+    if (scoreTable.total() === 0) {
       return 'perfect';
     }
 
-    if(timer.seconds <= 0){
+    if (timer.seconds <= 0) {
       return 'time up';
     }
 
@@ -290,12 +297,12 @@ $(function() {
   }
 
   //temp
-  function gameOverScreen(reason){
+  function gameOverScreen(reason) {
     clearInterval(gameClock);
     $('.gameScreen').fadeOut('fast', function() {
       $('.gameScreen').remove();
       $('.endScreen').fadeIn('fast', function() {
-        switch(reason){
+        switch (reason) {
           case 'time up':
             $('#endTitle').text('TIME UP!');
             $('#endMessage').text('Sorry you ran out of time!');
@@ -309,22 +316,30 @@ $(function() {
             $('#endMessage').text('Sorry, you added too much ' + reason + ' to the mix. Try again!');
             break;
         }
+        $('#endScore').text('Score: ' + scoreTable.total());
       });
     });
   }
 
   //IS THE GAME OVER END
 
+  // set up the board.
+  $('.startScreen').fadeIn('slow', function() {
+    $('#start').click(function(event) {
+      $('.startScreen').remove();
+      $('.gameScreen').fadeIn('slow', function() {
+        spawnPlayer();
+        goalColor.randomize();
+        console.log(goalColor.total());
+        $('#score').text(scoreTable.total()); //draw the initial score
 
-  // testing grounds
-  spawnPlayer();
-  goalColor.randomize();
-  console.log(goalColor.total());
-  $('#score').text(scoreTable.total()); //draw the initial score
-
-  var gameClock = setInterval(function(){
-    timer.update();
-    alienSpawn();
-  }, 1000);
+        //set everything to a game clock that ticks every second.
+        var gameClock = setInterval(function() {
+          timer.update();
+          alienSpawn();
+        }, 1000);
+      });
+    });
+  });
 
 });

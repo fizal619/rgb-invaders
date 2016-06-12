@@ -29,6 +29,7 @@ body {
 }
 
 .gameScreen {
+  display: none;
   margin-top: 5%;
   background-image:url('../assets/background.gif');
   /*background-position: fill;*/
@@ -137,14 +138,61 @@ body {
 
 .endScreen h2{
   position: absolute;
-  font-size: 1em;
-  width: 50%;
-  margin: 100px 300px;
-  /*text-align: center;*/
+  font-size: 1.2em;
+  margin: 180px 0 0 -50px;
+  left: 50%;
+  text-align: center;
 }
 
 .endScreen p{
   position: absolute;
-  width: 50%;
-  margin: 180px 200px;
+  width: 70%;
+  margin: 230px 0 0 -50px;
+  left: 25%;
+  text-align: center;
+}
+
+#endScore{
+ position: absolute;
+  width: 70%;
+  margin: 280px 0 0 -50px;
+  left: 25%;
+  text-align: right;
+}
+
+.button-danger{
+  color: white;
+  border-color: red;
+  background-color: red;
+}
+
+.startScreen{
+  /*display:none;*/
+  margin-top: 5%;
+  background-image:url('../assets/background.gif');
+  /*background-position: fill;*/
+  /*background-repeat: no-repeat;*/
+  background-size: cover;
+  position: relative;
+  width:auto;
+  height:500px;
+  border-radius: 5px;
+  color: white;
+
+}
+
+a.button{
+  color:black;
+  background-color: lightblue;
+  border-color: lightblue;
+}
+
+.containStart{
+  position:absolute;
+  width:70%;
+  height:300px;
+  margin: 0 auto;
+  left:19%;
+  top:20%;
+  text-align: center;
 }
