@@ -40,6 +40,14 @@ body {
   border-radius: 5px;
 }
 
+.timer{
+  position: absolute;
+  top:10px;
+  left: 10px;
+  color:white;
+}
+
+
 #liveScore{
   right: 10px;
   top:0;
@@ -110,4 +118,33 @@ body {
   width:100px;
   /*border: 2px white dashed;*/
   border-radius:10px;
+}
+
+.endScreen {
+  display:none;
+  margin-top: 5%;
+  background-image:url('../assets/background.gif');
+  /*background-position: fill;*/
+  /*background-repeat: no-repeat;*/
+  background-size: cover;
+  position: relative;
+  width:auto;
+  height:500px;
+  border-radius: 5px;
+  color: white;
+}
+
+
+.endScreen h2{
+  position: absolute;
+  font-size: 1em;
+  width: 50%;
+  margin: 100px 300px;
+  /*text-align: center;*/
+}
+
+.endScreen p{
+  position: absolute;
+  width: 50%;
+  margin: 180px 200px;
 }

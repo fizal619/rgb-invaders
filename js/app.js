@@ -30,6 +30,7 @@ $(function() {
       this.green = Math.floor(Math.random() * 25) * 10;
       this.blue = Math.floor(Math.random() * 25) * 10;
       $('#goalColor').css('background-color', this.rgb());
+      console.log(this.rgb());
     },
     // returns the RGB value of this
     rgb: function() {
@@ -54,6 +55,32 @@ $(function() {
 
   //we'll give each new alien a unique ID from incrementing this
   var alienID = 0;
+
+  //timer object to manage the timer on the board.
+  var timer = {
+    seconds: 260,
+    //returns the minutes
+    minutes: function(){
+      if(Math.floor(this.seconds/60) >= 10){
+        return Math.floor(this.seconds/60);
+      }else{
+        return '0' + Math.floor(this.seconds/60);
+      }
+    },
+    // updates the page's timer
+    update: function(){
+      if(this.seconds%60 >= 10){
+        $('#timer').text(this.minutes() + ':' + this.seconds%60);
+      }else{
+        $('#timer').text(this.minutes() + ':0' + this.seconds%60);
+      }
+      this.seconds--;
+
+      if(testGameOver()){
+      gameOverScreen(testGameOver());
+    }
+    }
+  }
 
   //END USEFUL VARIABLES
 
@@ -192,6 +219,11 @@ $(function() {
       scoreTable.red += 10;
     }
 
+    // if testGameover returns
+    if(testGameOver()){
+      gameOverScreen(testGameOver());
+    }
+
     // draw the score
     $('#score').text(scoreTable.total());
 
@@ -213,9 +245,7 @@ $(function() {
       for (var h = 0; i < aliensOnBoard.length; h++) {
         collision($(rocketsOnBoard[i]), $(aliensOnBoard[h]));
       }
-
     }
-
   }
   //CHECK COLLISION END
 
@@ -241,16 +271,60 @@ $(function() {
   }
   // UPDATE COLOR BARS AND BG END
 
-  // function to to check for game over.
+  //IS THE GAME OVER?
+  function testGameOver(){
+    if(scoreTable.red > goalColor.red) { return 'red';}
+    if(scoreTable.green > goalColor.green) { return 'green';}
+    if(scoreTable.blue > goalColor.blue) { return 'blue';}
 
+    if(score===0){
+      return 'perfect';
+    }
+
+    if(timer.seconds <= 0){
+      return 'time up';
+    }
+
+    //would only return false if all of the above conditions are false
+    return false;
+  }
+
+  //temp
+  function gameOverScreen(reason){
+    clearInterval(gameClock);
+    $('.gameScreen').fadeOut('fast', function() {
+      $('.gameScreen').remove();
+      $('.endScreen').fadeIn('fast', function() {
+        switch(reason){
+          case 'time up':
+            $('#endTitle').text('TIME UP!');
+            $('#endMessage').text('Sorry you ran out of time!');
+            break;
+          case 'perfect':
+            $('#endTitle').text('PERFECT SCORE!');
+            $('#endMessage').text('DAMN! You just beat a really hard game!');
+            break;
+          default:
+            $('#endTitle').text('WOAH THERE MIXMASTER!');
+            $('#endMessage').text('Sorry, you added too much ' + reason + ' to the mix. Try again!');
+            break;
+        }
+      });
+    });
+  }
+
+  //IS THE GAME OVER END
 
 
   // testing grounds
   spawnPlayer();
   goalColor.randomize();
+  console.log(goalColor.total());
   $('#score').text(scoreTable.total()); //draw the initial score
-  setInterval(alienSpawn, 1000);
 
-
+  var gameClock = setInterval(function(){
+    timer.update();
+    alienSpawn();
+  }, 1000);
 
 });
