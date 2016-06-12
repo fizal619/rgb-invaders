@@ -32,7 +32,7 @@ body {
   display: none;
   margin: auto;
   /*margin-top: 5%;*/
-  background-image:url('../rgb-invaders/assets/background.gif');
+  background-image:url('../assets/background.gif');
   /*background-position: fill;*/
   /*background-repeat: no-repeat;*/
   background-size: cover;
@@ -126,7 +126,7 @@ body {
   display:none;
   margin: auto;
   /*margin-top: 5%;*/
-  background-image:url('../rgb-invaders/assets/background.gif');
+  background-image:url('../assets/background.gif');
   /*background-position: fill;*/
   /*background-repeat: no-repeat;*/
   background-size: cover;
@@ -175,7 +175,7 @@ body {
 .startScreen{
   /*display:none;*/
   /*margin-top: 5%;*/
-  background-image:url('../rgb-invaders/assets/background.gif');
+  background-image:url('../assets/background.gif');
   /*background-position: fill;*/
   /*background-repeat: no-repeat;*/
   background-size: cover;
