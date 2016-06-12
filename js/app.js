@@ -4,9 +4,9 @@ $(function() {
   // 'USEFUL' AND EXPLICITLY NAMED VARIABLES
   var game = true;
   var aliens = [
-    '../assets/invader.gif~c100',
-    '../assets/blue_invader.gif',
-    '../assets/green_invader.gif'
+    '../rgb-invaders/assets/invader.gif~c100',
+    '../rgb-invaders/assets/blue_invader.gif',
+    '../rgb-invaders/assets/green_invader.gif'
   ];
 
   // a nice handy reference for keycodes
@@ -117,7 +117,7 @@ $(function() {
   //spawn it
   function spawnPlayer() {
     // var div = $('<div class="player">');
-    var img = $('<img class="player" src="../assets/spaceship.gif">');
+    var img = $('<img class="player" src="../rgb-invaders/assets/spaceship.gif">');
 
     // position it
     img.css('left', '50%');
@@ -162,7 +162,7 @@ $(function() {
   //to make the player fire
   function fireRocket() {
     // initializes the rocket at the players current position
-    var rocket = $('<img class="rocket" src="../assets/rocket.gif">');
+    var rocket = $('<img class="rocket" src="../rgb-invaders/assets/rocket.gif">');
     var playerPosition = $('.player').position();
 
     rocket.css('left', playerPosition.left - 8);
