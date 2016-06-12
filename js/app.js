@@ -426,7 +426,7 @@ $(function() {
     } else { //everything else
       if ($(window).width() < 1400) {
         // adjust the height
-        screensHeight(4);
+        screensHeight(5);
 
         // now the width
         screensWidth(3);
